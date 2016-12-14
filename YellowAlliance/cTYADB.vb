@@ -21,7 +21,7 @@ Public Class cTYADB
 
         'Build connection string   
         'sConn = "DSN=TEST;UID=" & sUserID & ";PWD=" & sPassword & ";"
-        sConn = "Server=mysql.theyellowalliance.com;database=mydatabase;Uid=kmoore503;Pwd=pass@word1#" & ";"
+        sConn = "DSN=YellowAllianceDB;UID=kmoore503;Pwd=pass@word1#" & ";"
 
         If cn Is Nothing Then
             Try

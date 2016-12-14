@@ -230,10 +230,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.vb" />
-    <Compile Include="App_Start\FilterConfig.vb" />
-    <Compile Include="App_Start\identityConfig.vb" />
     <Compile Include="App_Start\RouteConfig.vb" />
-    <Compile Include="App_Start\Startup.Auth.vb" />
     <Compile Include="App_Start\WebApiConfig.vb" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.vb" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.vb" />
@@ -263,15 +260,15 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.vb" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.vb" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.vb" />
-    <Compile Include="Controllers\AccountController.vb" />
+    <Compile Include="Models\cEvent.vb" />
+    <Compile Include="Models\cMatchSchedule.vb" />
+    <Compile Include="Models\cRankings.vb" />
+    <Compile Include="Models\cTeam.vb" />
     <Compile Include="cTYADB.vb" />
     <Compile Include="cTYAServer.vb" />
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountBindingModels.vb" />
-    <Compile Include="Models\AccountViewModels.vb" />
-    <Compile Include="Models\IdentityModels.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -287,9 +284,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Controllers\HomeController.vb" />
-    <Compile Include="Controllers\ValuesController.vb" />
-    <Compile Include="Providers\ApplicationOAuthProvider.vb" />
+    <Compile Include="Controllers\TeamController.vb" />
     <Compile Include="Results\ChallengeResult.vb" />
     <Compile Include="Startup.vb" />
     <Compile Include="Controllers\TYAController.vb" />
@@ -327,6 +322,7 @@
     <Content Include="assets\css\skins\teal.css" />
     <Content Include="assets\css\skins\transparent.css" />
     <Content Include="assets\css\skins\yellow.css" />
+    <Content Include="assets\css\TYA.css" />
     <Content Include="assets\fonts\fontawesome-webfont.svg" />
     <Content Include="assets\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="assets\fonts\lato-bol-webfont.svg" />
@@ -377,8 +373,11 @@
     <Content Include="assets\img\user4.png" />
     <Content Include="assets\img\user5.png" />
     <Content Include="assets\img\Yellow Alliance.PNG" />
+    <Content Include="assets\img\Yellow-Alliance-Logo2.png" />
     <Content Include="assets\js\bootstrap\bootstrap.js" />
     <Content Include="assets\js\bootstrap\bootstrap.min.js" />
+    <Content Include="assets\js\d3.js" />
+    <Content Include="assets\js\d3.min.js" />
     <Content Include="assets\js\jquery-ui\jquery-ui-1.10.4.custom.js" />
     <Content Include="assets\js\jquery-ui\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="assets\js\jquery\jquery-2.1.0.js" />
@@ -579,6 +578,14 @@
     <Content Include="bin\YellowAlliance.dll" />
     <Content Include="bin\YellowAlliance.pdb" />
     <Content Include="bin\YellowAlliance.xml" />
+    <Content Include="js\index.js" />
+    <Content Include="js\TYAdashboard.js" />
+    <Content Include="js\TYAevents.js" />
+    <Content Include="js\TYAmatchschedule.js" />
+    <Content Include="js\TYAscorecards.js" />
+    <Content Include="js\TYAteam.js" />
+    <Content Include="js\YellowAlliance.js" />
+    <Content Include="Scripts\bootstrap-dialog.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -650,7 +657,7 @@
     </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="index.html" />
-    <Content Include="js\bootstrap-dialog.js" />
+    <Content Include="assets\js\bootstrap\bootstrap-dialog.js" />
     <Content Include="js\bootstrap\bootstrap.min.js" />
     <Content Include="js\custom.js" />
     <Content Include="js\jquery.min.js" />
@@ -667,10 +674,12 @@
     <Content Include="js\plugins\navbar.js" />
     <Content Include="js\plugins\waypoints.min.js" />
     <Content Include="js\plugins\wow.min.js" />
-    <Content Include="js\YellowAlliance.js" />
+    <Content Include="js\TYAteams.js" />
     <Content Include="leftsidebar.html" />
     <Content Include="page-dashboard.html" />
     <Content Include="page-events.html" />
+    <Content Include="page-matchentry.html" />
+    <Content Include="page-scorecards.html" />
     <Content Include="page-team.html" />
     <Content Include="page-teams.html" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
@@ -712,10 +721,10 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Properties\" />
+    <Folder Include="Providers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -747,7 +756,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57131</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:57131/</IISUrl>
+          <IISUrl>http://localhost:57132/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

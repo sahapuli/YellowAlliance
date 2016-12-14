@@ -2,30 +2,41 @@
 Imports System.Web.Http
 
 Public Class TYAController
-    Inherits ApiController
+        Inherits ApiController
 
-    ' GET api/<controller>
-    Public Function GetValues() As IEnumerable(Of String)
-        Return New String() {"value1", "value2"}
+        Public Function GetEventList() As IHttpActionResult
+            '---------------------------------------------------------------
+            'Function:  GetEventList 
+            'Purpose:   Get list of events from TYA database 
+            'Input:     None 
+            'Output:    Returns ActionResult object containing list of cEvent objects 
+            '---------------------------------------------------------------
+            Dim m_cTYAServer As New cTYAServer
+            Dim EventList As New List(Of cEvent)
+
+            Try
+                EventList = m_cTYAServer.GetEvents()
+            Catch ex As Exception
+                Dim errmsg = "api/TYA/" & "GetEvents failed! Return Code: " & ex.Message.ToString
+                Return Content(HttpStatusCode.InternalServerError, errmsg)
+            End Try
+
+            Return Ok(EventList)
+        End Function
+
+    Public Function xxx() As IHttpActionResult
+        Dim m_cTYAServer As New cTYAServer
+        Dim Teamlist As List(Of cTeam)
+
+        Try
+            Teamlist = m_cTYAServer.GetTeams()
+        Catch ex As Exception
+            Dim errmsg = "api/TYA/" & "GetEvents failed! Return Code: " & ex.Message.ToString
+            Return Content(HttpStatusCode.InternalServerError, errmsg)
+        End Try
+
+        Return Ok(Teamlist)
+
     End Function
 
-    ' GET api/<controller>/5
-    Public Function GetValue(ByVal id As Integer) As String
-        Return "value"
-    End Function
-
-    ' POST api/<controller>
-    Public Sub PostValue(<FromBody()> ByVal value As String)
-
-    End Sub
-
-    ' PUT api/<controller>/5
-    Public Sub PutValue(ByVal id As Integer, <FromBody()> ByVal value As String)
-
-    End Sub
-
-    ' DELETE api/<controller>/5
-    Public Sub DeleteValue(ByVal id As Integer)
-
-    End Sub
 End Class

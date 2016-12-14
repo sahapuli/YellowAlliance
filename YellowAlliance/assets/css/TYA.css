@@ -1,0 +1,24 @@
+﻿/*
+ * The Yellow Alliance CSS v0.1
+ * Copyright 2016 The Fera Group and FRC 503 Frog Force 
+ *
+*/
+
+.TYA-left {
+    text-align: left;
+}
+.TYA-right {
+    text-align: right; 
+}
+.TYA-center {
+    text-align: center;
+}
+.TYA-justify {
+    text-align:justify;
+}
+.TYA-spacer {
+    margin-bottom: 5px;
+}
+.TYA-modal-lg {
+    width: 1000px;
+}
