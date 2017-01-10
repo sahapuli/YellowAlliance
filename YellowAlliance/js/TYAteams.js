@@ -22,13 +22,13 @@ $(document).ready(function () {
             ],
         });
 
+        refreshteams();
+
         //Setup callback function is row on table is clicked
-        $('#team-table tbody').on('click', 'tr', function () {
+        $('#team-table tbody').on('click', 'tr', function () {
             var aData = table.row(this).data();
             TableitemSelected(aData);
         });
-
-        refreshteams();
     }
 });  // End of Document Ready function
 
@@ -56,13 +56,16 @@ function refreshteams() {
 } // End refreshtable
 
 function formatrow(item) {
-    return [item.TeamNumber, item.TeamNameLong, item.TeamNameShort, item.City, item.StateProv];
+    return [item.TeamNumber, item.TeamNameLong, item.SchoolName, item.City, item.StateProv];
 }
 
-//Show modal window on row click in employee table allowing user to maintain data
+//jump to team table when row is clicked 
 function TableitemSelected(item) {
-    // document.getElementById("vendorid").value = item[0];            //put vendorurer id on modal page
-    document.getElementById("vendorid").value = $('#vendorselect').val();      //get vendor ID from page
-    document.getElementById("vendordesc").value = item[1];          //put vendorurer name on modal page
-    $('#myModalleaf').modal('show');
+    window.location.href = "\page-team.html?ID="+ item[0];
+}
+
+function addLink(item) {
+    var linkstr = "";
+    linkstr = "<a href=\"page-team.html?ID=" + item + "\">" + item + "</a>";
+    return linkstr;
 }

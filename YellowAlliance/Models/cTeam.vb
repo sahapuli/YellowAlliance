@@ -12,9 +12,11 @@ Public Class cTeam
     Private m_TeamNameLong As String
     Private m_TeamNameShort As String
     Private m_City As String
+    Private m_StateProvID As Long
     Private m_StateProv As String
     Private m_LeagueID As Integer
-    Private m_RegionID As String
+    Private m_RegionID As Long
+    Private m_SchoolName As String
     '-------------------------------------------------------------------
     'Properties 
     '-------------------------------------------------------------------
@@ -60,6 +62,14 @@ Public Class cTeam
             m_City = value
         End Set
     End Property
+    Public Property StateProvID As Long
+        Get
+            Return m_StateProvID
+        End Get
+        Set(value As Long)
+            m_StateProvID = value
+        End Set
+    End Property
     Public Property StateProv As String
         Get
             Return m_StateProv
@@ -68,7 +78,6 @@ Public Class cTeam
             m_StateProv = value
         End Set
     End Property
-
     Public Property LeagueID As Integer
         Get
             Return m_LeagueID
@@ -78,12 +87,21 @@ Public Class cTeam
         End Set
     End Property
 
-    Public Property RegionID As String
+    Public Property RegionID As Long
         Get
             Return m_RegionID
         End Get
-        Set(value As String)
+        Set(value As Long)
             m_RegionID = value
+        End Set
+    End Property
+
+    Public Property SchoolName As String
+        Get
+            Return m_SchoolName
+        End Get
+        Set(value As String)
+            m_SchoolName = value
         End Set
     End Property
 End Class

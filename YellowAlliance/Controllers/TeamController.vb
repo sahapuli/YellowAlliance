@@ -37,11 +37,31 @@ Public Class TeamController
         Dim MatchList As New List(Of cMatchSchedule)
 
         Try
-            MatchList = m_cTYAServer.GetMatchList(id)
+            MatchList = m_cTYAServer.GetMatchList(CLng(id))
         Catch ex As Exception
             Dim errmsg = "api/TYA/" & "GetMatchlist failed! Return Code: " & ex.Message.ToString
             Return Content(HttpStatusCode.InternalServerError, errmsg)
         End Try
         Return Ok(MatchList)
+    End Function
+
+
+    Public Function GetRankingList(ByVal id As String) As IHttpActionResult
+        '---------------------------------------------------------------
+        'Function:  GeRankingList 
+        'Purpose:   Get list of teams in rank order for given event  
+        'Input:     None 
+        'Output:    Returns ActionResult object containing list of cRanking objects 
+        '---------------------------------------------------------------
+        Dim m_cTYAServer As New cTYAServer
+        Dim RankingList As New List(Of cRankings)
+
+        Try
+            RankingList = m_cTYAServer.GetRankingList(CLng(id))
+        Catch ex As Exception
+            Dim errmsg = "api/TYA/" & "GetRankinglist failed! Return Code: " & ex.Message.ToString
+            Return Content(HttpStatusCode.InternalServerError, errmsg)
+        End Try
+        Return Ok(RankingList)
     End Function
 End Class

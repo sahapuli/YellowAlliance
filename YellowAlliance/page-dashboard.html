@@ -13,6 +13,7 @@
 	<meta name="author" content="The Fera Group and FRC 503 Frog Force">
 	<!-- CSS -->
 	<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/bootstrap-dialog.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/main.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/my-custom-styles.css" rel="stylesheet" type="text/css">
@@ -62,7 +63,7 @@
 							<div class="col-md-4 ">
 								<ul class="breadcrumb">
 									<li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
-									<li class="active">Event Dashboard</li>
+									<li class="active"><i class="fa fa-dashboard fa-fw"></i>Event Dashboard</li>
 								</ul>
 							</div>
 							<div class="col-md-8 ">
@@ -74,7 +75,7 @@
 						<!-- main -->
 						<div class="content">
 							<div class="main-header">
-								<h2>Yellow Alliance Event Dashboard</h2>
+								<h2>Event Dashboard</h2>
 								<em> find details for the selected event here...</em>
 							</div>
                             <div class="main-content">
@@ -124,58 +125,22 @@
                                                 <div class="panel panel-primary">
                                                     <div class="panel-heading">Match Results</div>
                                                     <div class="panel-body">
-                                                        <table id="matchresult-table" class="table table-hover">
+                                                        <table id="matchresult-table" class="dt-responsive table table-sorting table-striped table-hover datatable">
                                                             <tbody></tbody>
                                                         </table>
                                                     </div>
                                                 </div>
                                             </div>
-                                                    <div class="tab-pane fade in" id="tab22">
-                                                        <h5>Qualification Rankings</h5>
-
-                                                        <table id="ranking-table" class="table table-hover">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Rank</th>
-                                                                    <th>Team</th>
-                                                                    <th>Team Name</th>
-                                                                    <th>QP</th>
-                                                                    <th>RP</th>
-                                                                    <th>Highest</th>
-                                                                    <th>Matches</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>1</td>
-                                                                    <td>503</td>
-                                                                    <td>Frog Force</td>
-                                                                    <td>100</td>
-                                                                    <td>50</td>
-                                                                    <td>100</td>
-                                                                    <td>5</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>2</td>
-                                                                    <td>9111</td>
-                                                                    <td>Black Frogs</td>
-                                                                    <td>90</td>
-                                                                    <td>40</td>
-                                                                    <td>90</td>
-                                                                    <td>5</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>3</td>
-                                                                    <td>1234</td>
-                                                                    <td>Posion Dart Frogs</td>
-                                                                    <td>80</td>
-                                                                    <td>30</td>
-                                                                    <td>80</td>
-                                                                    <td>5</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
+                                                <div class="tab-pane fade in" id="tab22">
+                                                    <div class="panel panel-primary">
+                                                         <div class="panel-heading">Qualification Rankings</div>
+                                                         <div class="panel-body">
+                                                            <table id="ranking-table" class="dt-responsive table table-sorting table-striped table-hover datatable">
+                                                                <tbody></tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
+                                                </div>
                                                     <div class="tab-pane fade in" id="tab23">
                                                         <h5>Tab Awards</h5>
                                                         <p>some other text here</p>

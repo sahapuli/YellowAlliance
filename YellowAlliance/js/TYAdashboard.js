@@ -14,14 +14,15 @@ $(document).ready(function () {
         var table = $("#matchresult-table").DataTable({
             "lengthMenu": [[15, 25, 50, -1], [15, 25, 50, "All"]],
             "aoColumns": [
-            { "sTitle": "Match", "sClass": "TYA-left", "sWidth": "70px" },
-            { "sTitle": "Result", "sClass": "TYA-left", "sWidth": "280px" },
-            { "sTitle": "Red 1", "sClass": "TYA-left", "sWidth": "100px" },
-            { "sTitle": "Red 2", "sClass": "TYA-left", "sWidth": "100px" },
-            { "sTitle": "Red 3", "sClass": "TYA-left", "sWidth": "100px" },
-            { "sTitle": "Blue 1", "sClass": "TYA-left", "sWidth": "100px" },
-            { "sTitle": "Blue 2", "sClass": "TYA-left", "sWidth": "100px" },
-            { "sTitle": "Blue 3", "sClass": "TYA-left", "sWidth": "100px" }
+            { "sTitle": "Match ID", "sClass": "TYA-center", "sWidth": "70px" },
+            { "sTitle": "Match Name", "sClass": "TYA-center", "sWidth": "120px" },
+            { "sTitle": "Result", "sClass": "TYA-center", "sWidth": "150px" },
+            { "sTitle": "Red 1", "sClass": "TYA-center", "sWidth": "100px" },
+            { "sTitle": "Red 2", "sClass": "TYA-center", "sWidth": "100px" },
+            { "sTitle": "Red 3", "sClass": "TYA-center", "sWidth": "100px" },
+            { "sTitle": "Blue 1", "sClass": "TYA-center", "sWidth": "100px" },
+            { "sTitle": "Blue 2", "sClass": "TYA-center", "sWidth": "100px" },
+            { "sTitle": "Blue 3", "sClass": "TYA-center", "sWidth": "100px" }
             ],
         }); //end data table 
 
@@ -34,15 +35,42 @@ $(document).ready(function () {
         //refresh the list of events for a user to select
         refresheventlist();
 
+   //
+   //*******************************************
+   /*  Initialize Rank Table
+   /********************************************/
+   //
+    if (!$.fn.dataTable.isDataTable('#ranking-table')) {
+        //Set defaults for page sizes
+        var table = $("#ranking-table").DataTable({
+            "lengthMenu": [[15, 25, 50, -1], [15, 25, 50, "All"]],
+            "aoColumns": [
+            { "sTitle": "Rank", "sClass": "TYA-center", "sWidth": "70px" },
+            { "sTitle": "Team No", "sClass": "TYA-center", "sWidth": "70px" },
+            { "sTitle": "Team Name", "sClass": "TYA-center", "sWidth": "200px" },
+            { "sTitle": "Qualification Points", "sClass": "TYA-center", "sWidth": "100px" },
+            { "sTitle": "Ranking Points", "sClass": "TYA-center", "sWidth": "80px" },
+            { "sTitle": "High Score", "sClass": "TYA-center", "sWidth": "80px" },
+            { "sTitle": "Matches", "sClass": "TYA-center", "sWidth": "80px" }
+            ],
+        }); //end data table 
+
+        //Setup callback function is row on table is clicked
+        $('#ranking-table tbody').on('click', 'tr', function () {
+            var aData = table.row(this).data();
+            RankingitemSelected(aData);
+        });
+
+    } // end if
+
         //setup an event handler for the user selecting a different event
         $('#eventsel').change(function () {
             refreshtable();
+            refreshrankingtable();
         });
     } // end if
     
-   
-
-    });  // End of Document Ready function
+});  // End of Document Ready function
 
 
 function refresheventlist() {
@@ -108,13 +136,51 @@ function refreshtable() {
 
 function formatrow(item) {
     var res = item.RedScore + "-" + item.BlueScore;
+    if(item.RedScore > item.BlueScore) {
+        res = res + " (Red)";
+    } else 
+        if (item.BlueScore > item.RedScore) {
+        res = res + " (Blue)";
+        } else
+            if (item.RedScore === item.BlueScore) {
+                res = res + " (Tie)";
+            }
+
     var r3 = "";
     var b3 = "";
-    if (res === "0-0") { res = "" };
+    if (res === "0-0 (Tie)") { res = "" };
     if (item.RedTeamID3 > 0) { r3 = item.RedTeamID3 };
     if (item.BlueTeamID3 > 0) { b3 = item.BlueTeamID3 };
 
-    return [item.MatchID, res, item.RedTeamID1,item.RedTeamID2,r3,item.BlueTeamID1,item.BlueTeamID2,b3];
+    return [item.MatchID, item.MatchName, res, item.RedTeamID1,item.RedTeamID2,r3,item.BlueTeamID1,item.BlueTeamID2,b3];
+}
+
+function refreshrankingtable() {
+    showrefreshbtn("#gtbtn", "Refreshing...");
+    //Get selected event from event dropdown 
+    var saveqid = $('#eventsel').val();
+    var uri = "api/Team/GetRankingList/" + saveqid;
+    var tableData = [];
+
+    $.getJSON(uri, function (data) {
+        $.each(data, function (key, item) {
+            tableData.push(rankingrow(item));
+        });
+        // add row from array to html table
+        var t = $("#ranking-table").DataTable();
+        t.clear();
+        t.rows.add(tableData).draw();
+        hiderefreshbtn("#gtbtn", "Done");
+    }) // End Json Call 
+    // Optional - fires when operation completes with error
+    .error(function (jqXHR, textStatus, errorThrown) {
+        ErrorMsgBox("Error Getting Rank List!", jqXHR.responseJSON.Message, jqXHR.status);
+        hiderefreshbtn("#gtbtn", "Done");
+    }); // end of JSON Error 
+}
+
+function rankingrow(item) {
+    return [item.RankID, item.TeamNumber, item.TeamName, item.QualificationPoints, item.RankingPoints, item.HighestPoints, item.MatchCount];
 }
 
 

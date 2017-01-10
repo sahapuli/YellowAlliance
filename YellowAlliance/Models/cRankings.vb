@@ -7,9 +7,9 @@
 '-----------------------------------------------------------------------
 Public Class cRankings
     ' Locale Variables 
-    Private m_EventID As String
     Private m_RankID As Integer
-    Private m_TeamID As Integer
+    Private m_TeamNumber As Long
+    Private m_TeamName As String
     Private m_QualificationPoints As Integer
     Private m_RankingPoints As Integer
     Private m_HighestPoints As Integer
@@ -18,14 +18,6 @@ Public Class cRankings
     '-------------------------------------------------------------------
     'Properties 
     '-------------------------------------------------------------------
-    Public Property EventID As String
-        Get
-            Return m_EventID
-        End Get
-        Set(value As String)
-            m_EventID = value
-        End Set
-    End Property
 
     Public Property RankID As Integer
         Get
@@ -35,12 +27,20 @@ Public Class cRankings
             m_RankID = value
         End Set
     End Property
-    Public Property TeamID As Integer
+    Public Property TeamNumber As Long
         Get
-            Return m_TeamID
+            Return m_TeamNumber
         End Get
-        Set(value As Integer)
-            m_TeamID = value
+        Set(value As Long)
+            m_TeamNumber = value
+        End Set
+    End Property
+    Public Property TeamName As String
+        Get
+            Return m_TeamName
+        End Get
+        Set(value As String)
+            m_TeamName = value
         End Set
     End Property
     Public Property QualificationPoints As Integer
@@ -59,7 +59,7 @@ Public Class cRankings
             m_RankingPoints = value
         End Set
     End Property
-    Public Property Highestpoints As Integer
+    Public Property HighestPoints As Integer
         Get
             Return m_HighestPoints
         End Get

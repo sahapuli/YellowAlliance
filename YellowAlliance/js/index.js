@@ -79,3 +79,21 @@ function addLink(item) {
     linkstr = "<a href=\"page-dashboard.html?ID=" + item + "\">" + item + "</a>";
     return linkstr;
 }
+
+function testsecure() {
+    var uri = "api/TYASecured/TestSecurity";
+
+    $.getJSON(uri, function (data) {
+        if (data.hasOwnProperty('Message')) {
+            msgbox(-1, "Security Failed!", "Error Occurred: " + data.Message);
+        } else {
+            //user has successfully logged out 
+            msgbox(0, "Security Completed!", "Returned: " + data);
+        }
+     
+    }) // End Json Call 
+    // Optional - fires when operation completes with error
+    .error(function (jqXHR, textStatus, errorThrown) {
+        ErrorMsgBox("Error Calling Secure Controller!", jqXHR.responseJSON, jqXHR.status);
+    }); // end of JSON Error 
+}

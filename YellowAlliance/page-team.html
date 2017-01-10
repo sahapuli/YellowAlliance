@@ -13,6 +13,7 @@
 	<meta name="author" content="The Fera Group">
 	<!-- CSS -->
 	<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/bootstrap-dialog.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/main.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/my-custom-styles.css" rel="stylesheet" type="text/css">
@@ -64,26 +65,14 @@
 							<div class="col-md-4 ">
 								<ul class="breadcrumb">
 									<li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
-									<li>Teams</li>
-                                    <li class="active">Team</li>
+									<li><i class="fa fa-users"></i><a href="page-teams.html">Teams</a></li>
+                                    <li class="active"><i class="fa fa-user"></i>Team</li>
 								</ul>
 							</div>
 							<div class="col-md-8 ">
 								<div class="top-content">
 									<ul class="list-inline mini-stat">
-										<li>
-											<h5>LIKES <span class="stat-value stat-color-orange"><i class="fa fa-plus-circle"></i> 81,450</span></h5>
-											<span id="mini-bar-chart1" class="mini-bar-chart"></span>
-										</li>
-										<li>
-											<h5>SUBSCRIBERS <span class="stat-value stat-color-blue"><i class="fa fa-plus-circle"></i> 150,743</span></h5>
-											<span id="mini-bar-chart2" class="mini-bar-chart"></span>
-										</li>
-									<!---
-                                        	<li>
-											<h5>CUSTOMERS <span class="stat-value stat-color-seagreen"><i class="fa fa-plus-circle"></i> 43,748</span></h5>
-											<span id="mini-bar-chart3" class="mini-bar-chart"></span>
-										</li>-->
+										
 									</ul>
 								</div>
 							</div>
@@ -95,68 +84,66 @@
 								<em> find individual team information here</em>
 							</div>
                             <div class="main-content">
-                                <!-- EVENT SELECTION TABLE -->
-                                <div class="widget widget-table">
-                                    <div class="widget-header">
-                                        <h3><i class="fa fa-user"></i> Team</h3> <em>- Individual Team Information</em>
-                                        <div class="btn-group widget-header-toolbar">
-                                            <a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
-                                            <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                                            <a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+                                <form class="form-horizontal" role="form">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label for="teamsel" class="col-md-2 control-label">Select Team:</label>
+                                            <div class="col-md-4">
+                                                <select class="form-control" id="teamsel" name="teamsel">
+                                                    <option value="0">Getting Teams...</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="widget-header-toolbar">
-                                            <div class="label label-info"><i class="fa fa-info"></i> 2 Informational Messages</div>
+                                    </fieldset>
+                                </form>
+                                <div class="widget">
+                                    <div class="widget-header">
+                                        <h3>Team Details</h3>
+                                        <div class="btn-group widget-header-toolbar">
+                                            <button type="button" id="gtbtn" disabled="disabled" class="btn btn-primary btn-sm btn-ajax"><i class="fa fa-refresh"></i><span>&nbsp;</span></button>
                                         </div>
                                     </div>
                                     <div class="widget-content">
-                                        <table id="event-table" class="table table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Team No</th>
-                                                    <th>Name</th>
-                                                    <th>School/Affiliation</th>
-                                                    <th>City</th>
-                                                    <th>State</th>
-                                                    <th>Conference</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>111</td>
-                                                    <td>Black Frogs</td>
-                                                    <td>Novi Middle School</td>
-                                                    <td>Michigan</td>
-                                                    <td>MI</td>
-                                                    <td>MI</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>222</td>
-                                                    <td>Poison Dart Frogs</td>
-                                                    <td>Novi Middle School</td>
-                                                    <td>Michigan</td>
-                                                    <td>MI</td>
-                                                    <td>MI</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>333</td>
-                                                    <td>Jumpy Frogs</td>
-                                                    <td>Novi Middle School</td>
-                                                    <td>Michigan</td>
-                                                    <td>MI</td>
-                                                    <td>MI</td>
-                                                </tr>
-                                                 <tr>
-                                                    <td>288</td> 
-                                                    <td>Spare Parts</td>
-                                                    <td>Gateway High</td>
-                                                    <td>St. Louis</td>
-                                                    <td>MO</td>
-                                                    <td>NE</td>
-                                                </tr>
-                                               
-                                               
-                                            </tbody>
-                                        </table>
+                                        <form class="form-horizontal" role="form">
+                                            <fieldset>
+                                                <legend>Team Information</legend>
+                                                <div class="form-group">
+                                                        <label for="tno" class="col-md-1 control-label">Team No:</label>
+                                                        <div class="col-md-4">
+                                                            <input type="text" class="form-control" id="tno" name="tno" disabled="disabled" placeholder="Team No">
+                                                        </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="tname" class="col-md-1 control-label">Name:</label>
+                                                    <div class="col-md-6">
+                                                        <input type="text" class="form-control" id="tname" name="tname" disabled="disabled" placeholder="Team Name">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="tschool" class="col-md-1 control-label">School:</label>
+                                                    <div class="col-md-6">
+                                                        <input type="text" class="form-control" id="tschool" name="tschool" disabled="disabled" placeholder="School Name">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="tcity" class="col-md-1 control-label">City:</label>
+                                                    <div class="col-md-3">
+                                                        <input type="text" class="form-control" id="tcity" name="tcity" disabled="disabled" placeholder="City">
+                                                    </div>
+                                                    <label for="tstate" class="col-md-1 control-label">State:</label>
+                                                    <div class="col-md-2">
+                                                        <input type="text" class="form-control" id="tstate" name="tstate" disabled="disabled" placeholder="State/Provience">
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+
+                                        <div id="match-container">
+                                            <!--<table class="table table-hover table-bordered">
+                                                <tbody id="match_base_table"></tbody>
+                                            </table>-->
+                                        </div>
+
                                     </div> <!--- end widget content --->
                                 </div> <!--- end widget ---> 
                                 <!-- END EVENT SELECTION TABLE -->
@@ -202,6 +189,7 @@
 	<script src="assets/js/king-chart-stat.js"></script>
 	<script src="assets/js/king-table.js"></script>
 	<script src="assets/js/king-components.js"></script>
+    <script src="assets/js/d3.min.js"></script>
     
     <script src="js/mods.js"></script>
     <script src="js/YellowAlliance.js"></script>

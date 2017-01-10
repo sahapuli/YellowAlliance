@@ -19,9 +19,11 @@ Public Class cTYADB
     Public Function GetConnection() As OdbcConnection
         Dim sConn As String
 
-        'Build connection string   
-        'sConn = "DSN=TEST;UID=" & sUserID & ";PWD=" & sPassword & ";"
-        sConn = "DSN=YellowAllianceDB;UID=kmoore503;Pwd=pass@word1#" & ";"
+        'Build connection string
+        'Hosted MySQL database 
+        'sConn = "DSN=YellowAllianceDB;UID=kmoore503;Pwd=pass@word1#" & ";"
+        'Local Access Data base
+        sConn = "DSN=TheYellowAlliance" & ";"
 
         If cn Is Nothing Then
             Try

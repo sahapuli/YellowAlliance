@@ -260,7 +260,13 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.vb" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.vb" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.vb" />
+    <Compile Include="Controllers\AuthController.vb" />
+    <Compile Include="Controllers\TYASecuredController.vb" />
+    <Compile Include="Models\cAlliance.vb" />
+    <Compile Include="Models\cAwardAssignment.vb" />
     <Compile Include="Models\cEvent.vb" />
+    <Compile Include="Models\cInspectionStatus.vb" />
+    <Compile Include="Models\cMatch.vb" />
     <Compile Include="Models\cMatchSchedule.vb" />
     <Compile Include="Models\cRankings.vb" />
     <Compile Include="Models\cTeam.vb" />
@@ -269,6 +275,7 @@
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\cTeamRanking.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -303,6 +310,7 @@
     <Content Include="assets\audio\bell-ringing.mp3" />
     <Content Include="assets\audio\flash-message.mp3" />
     <Content Include="assets\audio\offline.mp3" />
+    <Content Include="assets\css\bootstrap-dialog.css" />
     <Content Include="assets\css\bootstrap.css" />
     <Content Include="assets\css\bootstrap.min.css" />
     <Content Include="assets\css\font-awesome.css" />
@@ -585,6 +593,9 @@
     <Content Include="js\TYAscorecards.js" />
     <Content Include="js\TYAteam.js" />
     <Content Include="js\YellowAlliance.js" />
+    <Content Include="page-blank.html" />
+    <Content Include="page-login.html" />
+    <Content Include="page-team.html" />
     <Content Include="Scripts\bootstrap-dialog.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -680,7 +691,6 @@
     <Content Include="page-events.html" />
     <Content Include="page-matchentry.html" />
     <Content Include="page-scorecards.html" />
-    <Content Include="page-team.html" />
     <Content Include="page-teams.html" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
