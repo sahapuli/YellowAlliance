@@ -26,6 +26,8 @@ $(document).ready(function () {
             ],
         }); //end data table 
 
+        refreshmatchtable(); 
+
         //Setup callback function is row on table is clicked
         $('#matchresult-table tbody').on('click', 'tr', function () {
             var aData = table.row(this).data();
@@ -34,6 +36,7 @@ $(document).ready(function () {
 
         //refresh the list of events for a user to select
         refresheventlist();
+    } // end if
 
    //
    //*******************************************
@@ -55,21 +58,49 @@ $(document).ready(function () {
             ],
         }); //end data table 
 
+        refreshrankingtable();
+
         //Setup callback function is row on table is clicked
         $('#ranking-table tbody').on('click', 'tr', function () {
             var aData = table.row(this).data();
             RankingitemSelected(aData);
         });
-
     } // end if
 
-        //setup an event handler for the user selecting a different event
-        $('#eventsel').change(function () {
-            refreshtable();
-            refreshrankingtable();
+    //
+    //*******************************************
+    /*  Initialize Team Table
+    /********************************************/
+    //
+    if (!$.fn.dataTable.isDataTable('#teams-table')) {
+        //Set defaults for page sizes
+        var table = $("#teams-table").DataTable({
+            "lengthMenu": [[15, 25, 50, -1], [15, 25, 50, "All"]],
+            "aoColumns": [
+            { "sTitle": "Team No", "sClass": "TYA-left", "sWidth": "70px" },
+            { "sTitle": "Name", "sClass": "TYA-left", "sWidth": "280px" },
+            { "sTitle": "School/Affiliation", "sClass": "TYA-left" },
+            { "sTitle": "City", "sClass": "TYA-left", "sWidth": "100px" },
+            { "sTitle": "State", "sClass": "TYA-left", "sWidth": "50px" }
+            ],
+        });
+ 
+        refreshteams();
+
+        //Setup callback function is row on table is clicked
+        $('#teams-table tbody').on('click', 'tr', function () {
+            var aData = table.row(this).data();
+            teamSelected(aData);
         });
     } // end if
-    
+
+  //setup an event handler for the user selecting a different event
+    $('#eventsel').change(function () {
+        refreshmatchtable();
+        refreshrankingtable();
+        refreshteams();
+    });
+
 });  // End of Document Ready function
 
 
@@ -110,7 +141,7 @@ function refresheventlist() {
     });
 }
 
-function refreshtable() {
+function refreshmatchtable() {
     showrefreshbtn("#gtbtn", "Refreshing...");
     //Get selected event from event dropdown 
     var saveqid = $('#eventsel').val();
@@ -182,6 +213,42 @@ function refreshrankingtable() {
 function rankingrow(item) {
     return [item.RankID, item.TeamNumber, item.TeamName, item.QualificationPoints, item.RankingPoints, item.HighestPoints, item.MatchCount];
 }
+
+function refreshteams() {
+    showrefreshbtn("#gtbtn", "Refreshing...");
+    //Get selected event from event dropdown 
+    var saveqid = $('#eventsel').val();
+    var uri = "api/Team/GetTeamListAtEvent/" + saveqid;
+    var tableData = [];
+
+    $.getJSON(uri, function (data) {
+        $.each(data, function (key, item) {
+            tableData.push(formatteamrow(item));
+        });
+        // add row from array to html table
+        var t = $("#teams-table").DataTable();
+        t.clear();
+        t.rows.add(tableData).draw();
+        hiderefreshbtn("#gtbtn", "Done");
+    }) // End Json Call 
+    // Optional - fires when operation completes with error
+    .error(function (jqXHR, textStatus, errorThrown) {
+        ErrorMsgBox("Error Getting TeamsAtEvent!", jqXHR.responseJSON.Message, jqXHR.status);
+        hiderefreshbtn("#gtbtn", "Done");
+    }); // end of JSON Error 
+} // End refreshtable
+
+function formatteamrow(item) {
+    return [item.TeamNumber, item.TeamNameLong, item.SchoolName, item.City, item.StateProv];
+}
+
+//jump to team table when row is clicked 
+function teamSelected(item) {
+    window.location.href = "\page-team.html?ID=" + item[0];
+}
+
+
+
 
 
 function newrow() {

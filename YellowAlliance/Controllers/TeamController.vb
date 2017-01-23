@@ -64,4 +64,24 @@ Public Class TeamController
         End Try
         Return Ok(RankingList)
     End Function
+
+    Public Function GetTeamListAtEvent(ByVal id As String) As IHttpActionResult
+        '---------------------------------------------------------------
+        'Function:  GetTeamList 
+        'Purpose:   Get list of teams attending a particular event  
+        'Input:     Event ID  
+        'Output:    Returns ActionResult object containing list of cTeam objects 
+        '---------------------------------------------------------------
+        Dim m_cTYAServer As New cTYAServer
+        Dim TeamList As New List(Of cTeam)
+
+        Try
+            TeamList = m_cTYAServer.GetTeamsAtEvent(CLng(id))
+        Catch ex As Exception
+            Dim errmsg = "api/TYA/" & "GetTeamListatEvent failed! Return Code: " & ex.Message.ToString
+            Return Content(HttpStatusCode.InternalServerError, errmsg)
+        End Try
+
+        Return Ok(TeamList)
+    End Function
 End Class

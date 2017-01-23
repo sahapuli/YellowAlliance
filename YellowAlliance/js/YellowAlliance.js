@@ -24,13 +24,13 @@ function login() {
 
     var testpost = $.post(uri, { "": JSON.stringify(loginData) })
             .success(function (data) {
-                alert(data);
-
+                //user has successfully logged on 
+                msgbox(0, "Logout On Completed!", "You has successfully Logged On!");
+                //window.location.href = "\index.html";
             })
 
             .error(function (jqXHR, textStatus, errorThrown) {
                  msgbox(-1, "Login Failed!", 'Error Occurred: ' + jqXHR.responseText);
-
             });
 
 }

@@ -649,7 +649,63 @@ Public Class cTYAServer
 
         Return details
     End Function
+    Public Function GetTeamsAtEvent(ByVal EventID As Long) As List(Of cTeam)
+        '---------------------------------------------------------------------------------------
+        'Function:	GetTeamsAtEvent
+        'Purpose:	return list of teams attending a particular event         
+        'Input:     Event ID  
+        'Returns:   Returns list of cTeam objects 
+        '----------------------------------------------------------------------------------- ---> 	
+        Dim strSQL As String = ""
+        Dim dr As OdbcDataReader
+        Dim details As New List(Of cTeam)
+        Dim m_cTYADB As New cTYADB
 
+        strSQL = "SELECT T.TeamID,T.TeamNumber,T.TeamNameLong,T.TeamNameShort,T.City,T.StateProv,ST.DescriptionText,T.LeagueID,T.RegionID,T.SchoolName " &
+                 " FROM Teams T, StateProvTypes ST, EventTeams ET " &
+                 " where ET.eventID = " & EventID.ToString &
+                 " and t.teamID = et.TeamID " &
+                 " order by T.teamnumber "
+
+        'Execute SQL Command 
+        Try
+            dr = m_cTYADB.ExecDRQuery(strSQL)
+            While dr.Read()
+
+                Dim TeamRow As New cTeam
+                With TeamRow
+                    .TeamID = TestNullLong(dr, 0)
+                    .TeamNumber = TestNullLong(dr, 1)
+                    .TeamNameLong = TestNullString(dr, 2)
+                    .TeamNameShort = TestNullString(dr, 3)
+                    .City = TestNullString(dr, 4)
+                    .StateProvID = TestNullLong(dr, 5)
+                    .StateProv = TestNullString(dr, 6)
+                    .LeagueID = TestNullLong(dr, 7)
+                    .RegionID = TestNullLong(dr, 8)
+                    .SchoolName = TestNullString(dr, 9)
+
+                End With
+                details.Add(TeamRow)
+            End While
+
+            dr.Close()
+
+        Catch ex As Exception
+
+            Dim strErr As String = BuildErrorMsg("GetTeamsAtEvent", ex.Message.ToString)
+            Throw New Exception(strErr)
+
+        Finally
+            m_cTYADB.cmd.Dispose()
+            m_cTYADB.CloseDataReader()
+            m_cTYADB.CloseConnection()
+        End Try
+
+        m_cTYADB = Nothing
+
+        Return details
+    End Function
 
 
 

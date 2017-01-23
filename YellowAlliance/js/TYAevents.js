@@ -15,21 +15,22 @@ $(document).ready(function () {
             "lengthMenu": [[15, 25, 50, -1], [15, 25, 50, "All"]],
             "order": [[3,"asc"]],
             "aoColumns": [
-            { "sTitle": "Event ID", "sClass": "TYA-left", "sWidth": "100px" },
-            { "sTitle": "Name", "sClass": "TYA-left", "sWidth": "300px" },
+            { "sTitle": "Event ID", "sClass": "TYA-left", "sWidth": "80px" },
+            { "sTitle": "Name", "sClass": "TYA-left", "sWidth": "320px" },
             { "sTitle": "Location", "sClass": "TYA-left", "sWidth": "250px" },
             { "sTitle": "Date", "sClass": "TYA-left" },
-            { "sTitle": "Status", "sClass": "TYA-left" } 
+            { "sTitle": "Status", "sClass": "TYA-center" } 
             ],
         });
 
-        //Setup callback function is row on table is clicked
-        table.on('click', 'tr', function (e) {
+        refreshtable();
+
+         //Setup callback function is row on table is clicked
+        $('#events-table tbody').on('click', 'tr', function () {
             var aData = table.row(this).data();
             TableitemSelected(aData);
         });
 
-        refreshtable();
     }
 });  // End of Document Ready function
 
@@ -68,16 +69,14 @@ function addRowWFormat(item) {
         stat = "Registered";
     }
 
-    return [addLink(item.EventID), item.EventDescription, item.Venue, formatDate(sd), stat];
+    return [item.EventID, item.EventDescription, item.Venue, formatDate(sd), stat];
 }
 
-//Handle when a row in table is clicked 
+//jump to team table when row is clicked 
 function TableitemSelected(item) {
-    //alert(item[0]);                         //get selected event id
-    //document.getElementById("vendorid").value = $('#vendorselect').val();      //get vendor ID from page
-    //document.getElementById("vendordesc").value = item[1];          //put vendorurer name on modal page
-    //$('#myModalleaf').modal('show');
+    window.location.href = "\page-dashboard.html?ID=" + item[0];
 }
+
 
 function addLink(item) {
     var linkstr = "";
