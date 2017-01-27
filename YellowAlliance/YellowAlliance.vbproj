@@ -263,18 +263,19 @@
     <Compile Include="Controllers\AuthController.vb" />
     <Compile Include="Controllers\TYASecuredController.vb" />
     <Compile Include="Models\cAlliance.vb" />
+    <Compile Include="Models\cAward.vb" />
     <Compile Include="Models\cAwardAssignment.vb" />
     <Compile Include="Models\cEvent.vb" />
     <Compile Include="Models\cInspectionStatus.vb" />
     <Compile Include="Models\cMatch.vb" />
     <Compile Include="Models\cMatchSchedule.vb" />
     <Compile Include="Models\cRankings.vb" />
-    <Compile Include="Models\cTeam.vb" />
     <Compile Include="cTYADB.vb" />
     <Compile Include="cTYAServer.vb" />
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\cTeam.vb" />
     <Compile Include="Models\cTeamRanking.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

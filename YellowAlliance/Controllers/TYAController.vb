@@ -81,4 +81,23 @@ Public Class TYAController
         End Try
         Return Ok(MatchList)
     End Function
+    Public Function GetAwardListAtEvent(ByVal id As String) As IHttpActionResult
+        '---------------------------------------------------------------
+        'Function:  GetAwardList 
+        'Purpose:   Get list of awards at a particular event  
+        'Input:     Event ID  
+        'Output:    Returns ActionResult object containing list of cAward objects 
+        '---------------------------------------------------------------
+        Dim m_cTYAServer As New cTYAServer
+        Dim AwardList As New List(Of cAward)
+
+        Try
+            AwardList = m_cTYAServer.GetAwardsAtEvent(CLng(id))
+        Catch ex As Exception
+            Dim errmsg = "api/TYA/" & "GetAwardListatEvent failed! Return Code: " & ex.Message.ToString
+            Return Content(HttpStatusCode.InternalServerError, errmsg)
+        End Try
+
+        Return Ok(AwardList)
+    End Function
 End Class

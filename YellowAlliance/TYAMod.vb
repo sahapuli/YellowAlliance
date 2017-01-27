@@ -151,6 +151,23 @@ Module TYAMod
         Return datelist
     End Function
 
+    Public Function RemoveQuotes(ByVal inStr As String) As String
+        'removes all quotes from input string 
+        Dim RetStr As String = ""
+        Dim i As Integer
+
+        For i = 1 To Len(inStr)
+        Next
+
+        If Mid(inStr, i, 1) <> strQuote Then
+            If Mid(inStr, i, 1) <> strDblQuote Then
+                RetStr = RetStr + Mid(inStr, i, 1)
+            End If
+        End If
+        Return RetStr
+    End Function
+
+
     Public Function TestNullString(ByRef dr As OdbcDataReader, ByVal ord As Integer) As String
         Dim RetString As String = ""
 
@@ -237,4 +254,8 @@ Module TYAMod
 
         Return RetDec
     End Function
+
+
+
+
 End Module

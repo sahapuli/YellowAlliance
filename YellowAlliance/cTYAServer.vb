@@ -706,7 +706,65 @@ Public Class cTYAServer
 
         Return details
     End Function
+    Public Function GetAwardsAtEvent(ByVal EventID As Long) As List(Of cAward)
+        '---------------------------------------------------------------------------------------
+        'Function:	GetAwardsAtEvent
+        'Purpose:	return list of awards at a particular event         
+        'Input:     Event ID  
+        'Returns:   Returns list of cAward objects 
+        '----------------------------------------------------------------------------------- ---> 	
+        Dim strSQL As String = ""
+        Dim dr As OdbcDataReader
+        Dim details As New List(Of cAward)
+        Dim m_cTYADB As New cTYADB
 
+        strSQL = "SELECT A.AwardID,A.AwardName, A.AwardText,  T1.TeamNumber,T1.TeamNumber & '-' & T1.TeamNameShort as Team1" &
+                 ", T2.TeamNumber, T2.TeamNumber & '-' & T2.TeamNameShort as Team2" &
+                 ", T3.TeamNumber, T3.TeamNumber & '-' & T3.TeamNameShort as Team3" &
+                 " FROM (((EventAwards EA INNER JOIN Awards A ON EA.AwardID = A.AwardID) " &
+                 " LEFT JOIN Teams T1 ON EA.TeamID1 = T1.TeamID) " &
+                 " LEFT JOIN Teams AS T2 ON EA.TeamID2 = T2.TeamID) " &
+                 " LEFT JOIN Teams AS T3 ON EA.TeamID3 = T3.TeamID " &
+                 " WHERE EA.SeasonID=1 " &
+                 " And EA.EventID= " & EventID.ToString &
+                 " order by EA.AwardID"
+
+        'Execute SQL Command 
+        Try
+            dr = m_cTYADB.ExecDRQuery(strSQL)
+            While dr.Read()
+
+                Dim AwardRow As New cAward
+                With AwardRow
+                    .AwardID = TestNullLong(dr, 0)
+                    .Name = TestNullString(dr, 1)
+                    .Description = TestNullString(dr, 2)
+                    .Team1No = TestNullLong(dr, 3)
+                    .Team1 = TestNullString(dr, 4)
+                    .Team2No = TestNullLong(dr, 5)
+                    .Team2 = TestNullString(dr, 6)
+                    .Team3No = TestNullLong(dr, 7)
+                    .Team3 = TestNullString(dr, 8)
+                End With
+                details.Add(AwardRow)
+            End While
+
+            dr.Close()
+
+        Catch ex As Exception
+            Dim strErr As String = BuildErrorMsg("GetAwardsAtEvent", ex.Message.ToString)
+            Throw New Exception(strErr)
+
+        Finally
+            m_cTYADB.cmd.Dispose()
+            m_cTYADB.CloseDataReader()
+            m_cTYADB.CloseConnection()
+        End Try
+
+        m_cTYADB = Nothing
+
+        Return details
+    End Function
 
 
 

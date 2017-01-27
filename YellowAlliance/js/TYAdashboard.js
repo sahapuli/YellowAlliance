@@ -94,11 +94,40 @@ $(document).ready(function () {
         });
     } // end if
 
+    //
+    //*******************************************
+    /*  Initialize Awards Table
+    /********************************************/
+    //
+    if (!$.fn.dataTable.isDataTable('#awards-table')) {
+        //Set defaults for page sizes
+        var table = $("#awards-table").DataTable({
+            "lengthMenu": [[15, 25, 50, -1], [15, 25, 50, "All"]],
+            "aoColumns": [
+            { "sTitle": "ID", "sClass": "TYA-left", "sWidth": "40px" },
+            { "sTitle": "Name", "sClass": "TYA-left", "sWidth": "120px" },
+            { "sTitle": "Description", "sClass": "TYA-left"},
+            { "sTitle": "Team 1", "sClass": "TYA-left", "sWidth": "120px"  },
+            { "sTitle": "Team 2", "sClass": "TYA-left", "sWidth": "120px" },
+            { "sTitle": "Team 3", "sClass": "TYA-left", "sWidth": "120px" }
+            ],
+        });
+ 
+        refreshawards();
+
+        //Setup callback function is row on table is clicked
+        $('#awards-table tbody').on('click', 'tr', function () {
+            var aData = table.row(this).data();
+            awardSelected(aData);
+        });
+    } // end if
+
   //setup an event handler for the user selecting a different event
     $('#eventsel').change(function () {
         refreshmatchtable();
         refreshrankingtable();
         refreshteams();
+        refreshawards();
     });
 
 });  // End of Document Ready function
@@ -180,10 +209,16 @@ function formatrow(item) {
     var r3 = "";
     var b3 = "";
     if (res === "0-0 (Tie)") { res = "" };
-    if (item.RedTeamID3 > 0) { r3 = item.RedTeamID3 };
-    if (item.BlueTeamID3 > 0) { b3 = item.BlueTeamID3 };
+    if (item.RedTeamID3 > 0) { r3 = addLink(item.RedTeamID3) };
+    if (item.BlueTeamID3 > 0) { b3 = addLink(item.BlueTeamID3) };
 
-    return [item.MatchID, item.MatchName, res, item.RedTeamID1,item.RedTeamID2,r3,item.BlueTeamID1,item.BlueTeamID2,b3];
+    return [item.MatchID, item.MatchName, res, addLink(item.RedTeamID1),addLink(item.RedTeamID2),r3,addLink(item.BlueTeamID1),addLink(item.BlueTeamID2),b3];
+}
+
+function addLink(item) {
+    var linkstr = "";
+    linkstr = "<a href=\"page-team.html?ID=" + item + "\">" + item + "</a>";
+    return linkstr;
 }
 
 function refreshrankingtable() {
@@ -247,7 +282,38 @@ function teamSelected(item) {
     window.location.href = "\page-team.html?ID=" + item[0];
 }
 
+function refreshawards() {
+    showrefreshbtn("#gtbtn", "Refreshing...");
+    //Get selected event from event dropdown 
+    var saveqid = $('#eventsel').val();
+    var uri = "api/TYA/GetAwardListAtEvent/" + saveqid;
+    var tableData = [];
 
+    $.getJSON(uri, function (data) {
+        $.each(data, function (key, item) {
+            tableData.push(formatawardrow(item));
+        });
+        // add row from array to html table
+        var t = $("#awards-table").DataTable();
+        t.clear();
+        t.rows.add(tableData).draw();
+        hiderefreshbtn("#gtbtn", "Done");
+    }) // End Json Call 
+    // Optional - fires when operation completes with error
+    .error(function (jqXHR, textStatus, errorThrown) {
+        ErrorMsgBox("Error Getting AwardsAtEvent!", jqXHR.responseJSON.Message, jqXHR.status);
+        hiderefreshbtn("#gtbtn", "Done");
+    }); // end of JSON Error 
+} // End refreshtable
+
+function formatawardrow(item) {
+    return [item.AwardID, item.Name, item.Description, item.Team1, item.Team2, item.Team3];
+}
+
+//jump to team table when row is clicked 
+function awardSelected(item) {
+    window.location.href = "\page-team.html?ID=" + item[0];
+}
 
 
 
