@@ -1,4 +1,5 @@
-﻿Imports System.Data.Odbc
+﻿'Imports System.Data.mysql
+Imports MySql.Data.MySqlClient
 
 Module TYAMod
     Public strComma As String = ","
@@ -168,7 +169,7 @@ Module TYAMod
     End Function
 
 
-    Public Function TestNullString(ByRef dr As OdbcDataReader, ByVal ord As Integer) As String
+    Public Function TestNullString(ByRef dr As MySqlDataReader, ByVal ord As Integer) As String
         Dim RetString As String = ""
 
         If Not dr.IsDBNull(ord) Then
@@ -177,7 +178,7 @@ Module TYAMod
 
         Return RetString
     End Function
-    Public Function TestNullChar(ByRef dr As OdbcDataReader, ByVal ord As Integer) As String
+    Public Function TestNullChar(ByRef dr As MySqlDataReader, ByVal ord As Integer) As String
         Dim RetChar As String = "0"
 
         If Not dr.IsDBNull(ord) Then
@@ -186,7 +187,7 @@ Module TYAMod
 
         Return RetChar
     End Function
-    Public Function TestNullLong(ByRef dr As OdbcDataReader, ByVal ord As Integer) As Long
+    Public Function TestNullLong(ByRef dr As MySqlDataReader, ByVal ord As Integer) As Long
         Dim RetLong As Long = 0
 
         If Not dr.IsDBNull(ord) Then
@@ -195,7 +196,7 @@ Module TYAMod
 
         Return RetLong
     End Function
-    Public Function TestNullDate(ByRef dr As OdbcDataReader, ByVal ord As Integer) As Date
+    Public Function TestNullDate(ByRef dr As MySqlDataReader, ByVal ord As Integer) As Date
         Dim Retdate As New Date(2000, 1, 1, 12, 0, 0)
 
         If Not dr.IsDBNull(ord) Then
@@ -205,7 +206,7 @@ Module TYAMod
         Return Retdate
     End Function
 
-    Public Function TestRealNullDate(ByRef dr As OdbcDataReader, ByVal ord As Integer) As Nullable(Of Date)
+    Public Function TestRealNullDate(ByRef dr As MySqlDataReader, ByVal ord As Integer) As Nullable(Of Date)
         Dim Retdate As Nullable(Of Date)
 
         If Not dr.IsDBNull(ord) Then
@@ -215,7 +216,7 @@ Module TYAMod
         Return Retdate
     End Function
 
-    Public Function TestNullDouble(ByRef dr As OdbcDataReader, ByVal ord As Integer) As Double
+    Public Function TestNullDouble(ByRef dr As MySqlDataReader, ByVal ord As Integer) As Double
         Dim RetDBL As Double = 0
 
         If Not dr.IsDBNull(ord) Then
@@ -225,7 +226,7 @@ Module TYAMod
         Return RetDBL
     End Function
 
-    Public Function TestNullSingle(ByRef dr As OdbcDataReader, ByVal ord As Integer) As Single
+    Public Function TestNullSingle(ByRef dr As MySqlDataReader, ByVal ord As Integer) As Single
         Dim RetSing As Single = 0
 
         If Not dr.IsDBNull(ord) Then
@@ -235,7 +236,7 @@ Module TYAMod
         Return RetSing
     End Function
 
-    Public Function TestNullBoolean(ByRef dr As OdbcDataReader, ByVal ord As Integer) As Boolean
+    Public Function TestNullBoolean(ByRef dr As MySqlDataReader, ByVal ord As Integer) As Boolean
         Dim RetBool As Boolean = False
 
         If Not dr.IsDBNull(ord) Then
@@ -245,7 +246,7 @@ Module TYAMod
         Return RetBool
     End Function
 
-    Public Function TestNullDecimal(ByRef dr As OdbcDataReader, ByVal ord As Integer) As Decimal
+    Public Function TestNullDecimal(ByRef dr As MySqlDataReader, ByVal ord As Integer) As Decimal
         Dim RetDec As Decimal = 0
 
         If Not dr.IsDBNull(ord) Then

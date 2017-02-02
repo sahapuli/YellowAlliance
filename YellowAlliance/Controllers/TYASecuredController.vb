@@ -2,7 +2,7 @@
 Imports System.Web.Http
 
 'This is what secures this class - do not remove it 
-<Authorize>
+'<Authorize>
 Public Class TYASecuredController
     Inherits ApiController
     <HttpGet>

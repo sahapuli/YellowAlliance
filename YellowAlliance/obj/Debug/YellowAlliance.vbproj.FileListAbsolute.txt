@@ -54,3 +54,5 @@ C:\Users\Owner\documents\visual studio 2015\Projects\YellowAlliance\YellowAllian
 C:\Users\Owner\documents\visual studio 2015\Projects\YellowAlliance\YellowAlliance\obj\Debug\YellowAlliance.dll
 C:\Users\Owner\documents\visual studio 2015\Projects\YellowAlliance\YellowAlliance\obj\Debug\YellowAlliance.xml
 C:\Users\Owner\documents\visual studio 2015\Projects\YellowAlliance\YellowAlliance\obj\Debug\YellowAlliance.pdb
+C:\Users\Owner\Documents\Visual Studio 2015\Projects\YellowAlliance\YellowAlliance\bin\MySql.Data.dll
+C:\Users\Owner\Documents\Visual Studio 2015\Projects\YellowAlliance\YellowAlliance\bin\MySql.Data.xml

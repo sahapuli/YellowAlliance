@@ -80,6 +80,10 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Connector Net 6.9.9\Assemblies\v4.5\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -370,6 +374,9 @@
     <Content Include="assets\img\loading-white.gif" />
     <Content Include="assets\img\loading.gif" />
     <Content Include="assets\img\location-pin.png" />
+    <Content Include="assets\img\Orange Alliance Logo.jpg" />
+    <Content Include="assets\img\Orange Alliance Logo2.png" />
+    <Content Include="assets\img\Orange-Alliance-Logo-sm.png" />
     <Content Include="assets\img\profile-avatar.png" />
     <Content Include="assets\img\search-result-img.png" />
     <Content Include="assets\img\select2-spinner-white.gif" />
@@ -662,6 +669,9 @@
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
+    <None Include="My Project\PublishProfiles\theorangealliance.org - Web Deploy %282%29.pubxml" />
+    <None Include="My Project\PublishProfiles\theorangealliance.org - Web Deploy %283%29.pubxml" />
+    <None Include="My Project\PublishProfiles\theorangealliance.org - Web Deploy.pubxml" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
@@ -713,7 +723,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="topbarnav.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

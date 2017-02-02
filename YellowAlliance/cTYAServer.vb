@@ -1,4 +1,5 @@
-﻿Imports System.Data.Odbc
+﻿'Imports System.Data.Odbc
+Imports MySql.Data.MySqlClient
 Imports System.Threading.Tasks
 
 '   Class Name:      cTYAServer 
@@ -19,11 +20,11 @@ Public Class cTYAServer
         'Returns:   Returns list of cEvent objects 
         '----------------------------------------------------------------------------------- ---> 	
         Dim strSQL As String = ""
-        Dim dr As OdbcDataReader
+        Dim dr As MysqlDataReader
         Dim details As New List(Of cEvent)
         Dim m_cTYADB As New cTYADB
 
-        strSQL = "select eventid, eventdescription,venue,startdate from Events " &
+        strSQL = "select eventid, eventdescription,venue,startdate from TOAmaster_FTCdetails.Events " &
                  " order by startdate"
 
         'Execute SQL Command 
@@ -66,15 +67,15 @@ Public Class cTYAServer
         'Returns:   Returns list of cEvent objects 
         '----------------------------------------------------------------------------------- ---> 	
         Dim strSQL As String = ""
-        Dim dr As OdbcDataReader
+        Dim dr As MySqlDataReader
         Dim details As New List(Of cEvent)
         Dim m_cTYADB As New cTYADB
 
         strSQL = "SELECT E.eventid, E.eventdescription, et.descriptiontext, E.venue, E.startdate" &
                  ", E.enddate, E.city, StateProvTypes.DescriptionText, Countrys.DescriptionText " &
-                 " FROM ((Events AS E LEFT JOIN EventTypes AS et ON E.eventtypeid = et.eventtypeid) " &
-                 " INNER JOIN StateProvTypes ON E.StateProv = StateProvTypes.StateProvID) " &
-                 " INNER JOIN Countrys ON E.Country = Countrys.CountryID " &
+                 " FROM ((TOAmaster_FTCdetails.Events AS E LEFT JOIN TOAmaster_FTCdetails.EventTypes AS et ON E.eventtypeid = et.eventtypeid) " &
+                 " INNER JOIN TOAmaster_FTCdetails.StateProvTypes ON E.StateProv = StateProvTypes.StateProvID) " &
+                 " INNER JOIN TOAmaster_FTCdetails.Countrys ON E.Country = Countrys.CountryID " &
                  " Where E.eventid = " & EventID.ToString
 
         'Execute SQL Command 
@@ -124,12 +125,12 @@ Public Class cTYAServer
         'Returns:   Returns list of cTeam objects 
         '----------------------------------------------------------------------------------- ---> 	
         Dim strSQL As String = ""
-        Dim dr As OdbcDataReader
+        Dim dr As MySqlDataReader
         Dim details As New List(Of cTeam)
         Dim m_cTYADB As New cTYADB
 
         strSQL = "SELECT T.TeamID,T.TeamNumber,T.TeamNameLong,T.TeamNameShort,T.City,T.StateProv,ST.DescriptionText,T.LeagueID,T.RegionID,T.SchoolName " &
-                 " FROM Teams T, StateProvTypes ST " &
+                 " FROM TOAmaster_FTCdetails.Teams T, TOAmaster_FTCdetails.StateProvTypes ST " &
                  " order by T.teamnumber "
 
         'Execute SQL Command 
@@ -180,7 +181,7 @@ Public Class cTYAServer
         'Returns:   Returns list of cMatchSchedule objects 
         '----------------------------------------------------------------------------------- ---> 	
         Dim strSQL As String = ""
-        Dim dr As OdbcDataReader
+        Dim dr As MySqlDataReader
         Dim details As New List(Of cMatchSchedule)
         Dim m_cTYADB As New cTYADB
         Dim lSaveMatchID As Long = 0
@@ -210,7 +211,7 @@ Public Class cTYAServer
         Dim savBlueTeamID3 As Long
 
         strSQL = "SELECT M.EventID, M.MatchID, M.MatchName, M.ScheduleTime, M.Redauto+M.redDriver+M.redEndGame+M.redPen AS RedScore, M.Blueauto+M.BlueDriver+M.BlueEndGame+M.BluePen AS BlueScore, S.AllianceType, AllianceTypes.DescriptionText as Alliance_Type, S.TeamID " &
-                 " FROM ([Match] AS M LEFT JOIN ScheduleStation AS S ON (M.MatchID = S.MatchID) AND (M.EventID = S.EventID)) LEFT JOIN AllianceTypes ON S.AllianceType = AllianceTypes.AllianceType " &
+                 " FROM (TOAmaster_FTCdetails.Match AS M LEFT JOIN TOAmaster_FTCdetails.ScheduleStation AS S ON (M.MatchID = S.MatchID) AND (M.EventID = S.EventID)) LEFT JOIN TOAmaster_FTCdetails.AllianceTypes ON S.AllianceType = AllianceTypes.AllianceType " &
                  " WHERE M.EventID = " & EventID.ToString &
                  " Order by M.EventID, M.MatchID, M.ScheduleTime,S.AllianceType"
 
@@ -293,8 +294,8 @@ Public Class cTYAServer
                                 savRedTeamID2 = wrkRedTeamID
                             Else
                                 savRedTeamID3 = wrkRedTeamID
+                            End If
                         End If
-                    End If
 
                     Else
                         'mustbe a blue alliance 
@@ -358,15 +359,15 @@ Public Class cTYAServer
         'Returns:   Returns list of cRanking objects 
         '----------------------------------------------------------------------------------- ---> 	
         Dim strSQL As String = ""
-        Dim dr As OdbcDataReader
+        Dim dr As MySqlDataReader
         Dim details As New List(Of cRankings)
         Dim m_cTYADB As New cTYADB
 
-        strSQL = "select tr.rank, t.teamnumber,t.teamnamelong,tr.qualifyingpoints, tr.rankingpoints, tr.highscore,tr.matches " &
-                 " From teamranking tr " &
-                 " left join teams T on tr.teamid = t.teamid " &
-                 " where tr.eventid = " & EventID.ToString &
-                 " order by tr.rank "
+        strSQL = "select TR.rank, T.teamnumber,T.teamnamelong,TR.qualifyingpoints, TR.rankingpoints, TR.highscore,TR.matches " &
+                 " From TOAmaster_FTCdetails.TeamRanking TR " &
+                 " left join TOAmaster_FTCdetails.Teams T on TR.teamid = T.teamid " &
+                 " where TR.eventid = " & EventID.ToString &
+                 " order by TR.rank"
 
         'Execute SQL Command 
         Try
@@ -380,7 +381,7 @@ Public Class cTYAServer
                     .TeamName = TestNullString(dr, 2)
                     .QualificationPoints = TestNullLong(dr, 3)
                     .RankingPoints = TestNullLong(dr, 4)
-                    .Highestpoints = TestNullLong(dr, 5)
+                    .HighestPoints = TestNullLong(dr, 5)
                     .MatchCount = TestNullLong(dr, 6)
                 End With
                 details.Add(RankingRow)
@@ -412,12 +413,12 @@ Public Class cTYAServer
         'Returns:   Returns list of cTeam objects 
         '----------------------------------------------------------------------------------- ---> 	
         Dim strSQL As String = ""
-        Dim dr As OdbcDataReader
+        Dim dr As MySqlDataReader
         Dim details As New List(Of cTeam)
         Dim m_cTYADB As New cTYADB
 
         strSQL = "SELECT T.TeamID,T.TeamNumber,T.TeamNameLong,T.TeamNameShort,T.City,T.StateProv,ST.DescriptionText,T.LeagueID,T.RegionID,T.SchoolName " &
-                 " FROM Teams T, StateProvTypes ST " &
+                 " FROM TOAmaster_FTCdetails.Teams T, TOAmaster_FTCdetails.StateProvTypes ST " &
                  " where T.TeamNumber = " & TeamNumber.ToString
 
         'Execute SQL Command 
@@ -468,7 +469,7 @@ Public Class cTYAServer
         'Returns:   Returns list of cMatchSchedule objects 
         '----------------------------------------------------------------------------------- ---> 	
         Dim strSQL As String = ""
-        Dim dr As OdbcDataReader
+        Dim dr As MySqlDataReader
         Dim details As New List(Of cMatchSchedule)
         Dim m_cTYADB As New cTYADB
         Dim lSaveMatchID As Long = 0
@@ -499,16 +500,16 @@ Public Class cTYAServer
         Dim savBlueTeamID2 As Long
         Dim savBlueTeamID3 As Long
 
-        strSQL = "SELECT M.EventID, Events.EventDescription, M.MatchID, M.MatchName, M.ScheduleTime, M.Redauto+M.redDriver+M.redEndGame+M.redPen AS RedScore" &
-                 ", M.Blueauto+M.BlueDriver+M.BlueEndGame+M.BluePen AS BlueScore, S.AllianceType" &
-                 ", AllianceTypes.DescriptionText AS Alliance_Type, S.TeamID " &
-                 " FROM (([Match] AS M LEFT JOIN ScheduleStation AS S ON (M.EventID = S.EventID) AND (M.MatchID = S.MatchID)) " &
-                 " LEFT JOIN AllianceTypes ON S.AllianceType = AllianceTypes.AllianceType) " &
-                 " INNER JOIN Events ON M.EventID = Events.EventID " &
+        strSQL = "SELECT M.EventID, E.EventDescription, M.MatchID, M.MatchName, M.ScheduleTime, M.Redauto+M.redDriver+M.redEndGame+M.redPen AS RedScore " &
+                 ", M.Blueauto+M.BlueDriver+M.BlueEndGame+M.BluePen AS BlueScore, S.AllianceType " &
+                 ", AT.DescriptionText AS Alliance_Type, S.TeamID " &
+                 " FROM TOAmaster_FTCdetails.Match M " &
+                 " Left JOIN TOAmaster_FTCdetails.ScheduleStation S ON (M.EventID = S.EventID AND M.MatchID = S.MatchID) " &
+                 " Left JOIN TOAmaster_FTCdetails.AllianceTypes AT ON S.AllianceType = AT.AllianceType  " &
+                 " Left JOIN TOAmaster_FTCdetails.Events E ON M.EventID = E.EventID " &
                  " WHERE M.MatchID In " &
-                 "   (select matchid from schedulestation where teamid = " & TeamNumber.ToString & ")" &
-                 " ORDER BY Events.startdate, M.EventID, M.MatchID, M.ScheduleTime, S.AllianceType"
-
+                 " (select matchid from TOAmaster_FTCdetails.ScheduleStation where teamid = " & TeamNumber.ToString & ")" &
+                 " ORDER BY E.StartDate, M.EventID, M.MatchID, M.ScheduleTime, S.AllianceType "
 
         'Execute SQL Command 
         Try
@@ -657,14 +658,14 @@ Public Class cTYAServer
         'Returns:   Returns list of cTeam objects 
         '----------------------------------------------------------------------------------- ---> 	
         Dim strSQL As String = ""
-        Dim dr As OdbcDataReader
+        Dim dr As MySqlDataReader
         Dim details As New List(Of cTeam)
         Dim m_cTYADB As New cTYADB
 
         strSQL = "SELECT T.TeamID,T.TeamNumber,T.TeamNameLong,T.TeamNameShort,T.City,T.StateProv,ST.DescriptionText,T.LeagueID,T.RegionID,T.SchoolName " &
-                 " FROM Teams T, StateProvTypes ST, EventTeams ET " &
+                 " FROM TOAmaster_FTCdetails.Teams T, TOAmaster_FTCdetails.StateProvTypes ST, TOAmaster_FTCdetails.EventTeams ET " &
                  " where ET.eventID = " & EventID.ToString &
-                 " and t.teamID = et.TeamID " &
+                 " and T.teamID = ET.TeamID " &
                  " order by T.teamnumber "
 
         'Execute SQL Command 
@@ -714,17 +715,17 @@ Public Class cTYAServer
         'Returns:   Returns list of cAward objects 
         '----------------------------------------------------------------------------------- ---> 	
         Dim strSQL As String = ""
-        Dim dr As OdbcDataReader
+        Dim dr As MySqlDataReader
         Dim details As New List(Of cAward)
         Dim m_cTYADB As New cTYADB
 
         strSQL = "SELECT A.AwardID,A.AwardName, A.AwardText,  T1.TeamNumber,T1.TeamNumber & '-' & T1.TeamNameShort as Team1" &
                  ", T2.TeamNumber, T2.TeamNumber & '-' & T2.TeamNameShort as Team2" &
                  ", T3.TeamNumber, T3.TeamNumber & '-' & T3.TeamNameShort as Team3" &
-                 " FROM (((EventAwards EA INNER JOIN Awards A ON EA.AwardID = A.AwardID) " &
-                 " LEFT JOIN Teams T1 ON EA.TeamID1 = T1.TeamID) " &
-                 " LEFT JOIN Teams AS T2 ON EA.TeamID2 = T2.TeamID) " &
-                 " LEFT JOIN Teams AS T3 ON EA.TeamID3 = T3.TeamID " &
+                 " FROM (((TOAmaster_FTCdetails.EventAwards EA INNER JOIN TOAmaster_FTCdetails.Awards A ON EA.AwardID = A.AwardID) " &
+                 " LEFT JOIN TOAmaster_FTCdetails.Teams T1 ON EA.TeamID1 = T1.TeamID) " &
+                 " LEFT JOIN TOAmaster_FTCdetails.Teams AS T2 ON EA.TeamID2 = T2.TeamID) " &
+                 " LEFT JOIN TOAmaster_FTCdetails.Teams AS T3 ON EA.TeamID3 = T3.TeamID " &
                  " WHERE EA.SeasonID=1 " &
                  " And EA.EventID= " & EventID.ToString &
                  " order by EA.AwardID"

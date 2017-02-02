@@ -1,0 +1,145 @@
+﻿/*
+ * The Yellow Alliance CSS v0.1
+ * Copyright 2016 The Fera Group and FRC 503 Frog Force 
+ *
+*/
+
+.TYA-left {
+    text-align: left;
+}
+.TYA-right {
+    text-align: right; 
+}
+.TYA-center {
+    text-align: center;
+}
+.TYA-justify {
+    text-align:justify;
+}
+.TYA-spacer {
+    margin-bottom: 5px;
+}
+.TYA-modal-lg {
+    width: 1000px;
+}
+/*------------------------------------------------*/
+/*   Page: Login
+/*------------------------------------------------*/
+.btn-login-facebook {
+  background-color: #3B5998;
+  color: #fff;
+  position: relative;
+  width: 100%;
+  height: 40px;
+  padding-left: 40px;
+}
+.btn-login-facebook:hover, .btn-login-facebook:focus {
+  color: #fff;
+  background-color: #37538d;
+}
+.btn-login-facebook:before {
+  font-family: FontAwesome;
+  font-size: 20px;
+  content: "\f09a";
+  display: block;
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 7px 0;
+  width: 40px;
+  height: 40px;
+  background-color: #2d4373;
+}
+@media screen and (min-width: 768px) {
+  .btn-login-facebook {
+    width: 50%;
+  }
+}
+@media screen and (min-width: 992px) {
+  .btn-login-facebook {
+    width: 30%;
+  }
+}
+ 
+.page-login .logo {
+  margin-bottom: 40px;
+}
+.page-login .separator {
+  margin: 30px auto;
+  position: relative;
+  width: 100%;
+}
+.page-login .separator:before {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  content: "";
+  vertical-align: middle;
+  height: 0;
+  border-top: 1px solid #dddddd;
+  position: absolute;
+  top: 9px;
+  left: 10px;
+  right: 10px;
+}
+.page-login .separator span {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  position: relative;
+  background-color: #ececec;
+  padding: 0 8px;
+}
+@media screen and (min-width: 768px) {
+  .page-login .separator {
+    width: 50%;
+  }
+}
+@media screen and (min-width: 992px) {
+  .page-login .separator {
+    width: 31%;
+  }
+}
+.page-login .login-box {
+  width: 100%;
+  border: 1px solid #dddddd;
+  padding: 25px;
+  text-align: left;
+  background-color: #f1f1f1;
+}
+.page-login .login-box .title {
+  font-size: 1.2em;
+  line-height: 1;
+  margin-bottom: 15px;
+}
+.page-login .login-box .btn-login {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+@media screen and (min-width: 768px) {
+  .page-login .login-box {
+    width: 50%;
+  }
+}
+@media screen and (min-width: 992px) {
+  .page-login .login-box {
+    width: 30%;
+  }
+}
+.page-login .links {
+  text-align: center;
+}
+.page-login .links p {
+  margin-bottom: 0;
+  font-size: 0.9em;
+}
+.page-login .links p a:hover {
+  text-decoration: none;
+}
+ 
